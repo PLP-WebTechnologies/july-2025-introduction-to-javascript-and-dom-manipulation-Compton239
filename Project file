@@ -1,0 +1,206 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Fundamentals Assignment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Mastering JavaScript Fundamentals</h1>
+    
+    <!-- Part 1: Basics - Input and Conditional -->
+    <section id="basics-section">
+        <h2>Part 1: Basics - Enter Your Age</h2>
+        <input type="number" id="age-input" placeholder="Enter your age">
+        <button id="check-age-btn">Check Age</button>
+        <p id="age-result"></p>
+    </section>
+    
+    <!-- Part 2: Functions - String Formatter and Calculator -->
+    <section id="functions-section">
+        <h2>Part 2: Functions - String Formatter</h2>
+        <input type="text" id="name-input" placeholder="Enter your name">
+        <button id="format-name-btn">Format Name</button>
+        <p id="formatted-name"></p>
+        
+        <h2>Calculator</h2>
+        <input type="number" id="num1" placeholder="Number 1">
+        <input type="number" id="num2" placeholder="Number 2">
+        <button id="calculate-sum-btn">Calculate Sum</button>
+        <p id="sum-result"></p>
+    </section>
+    
+    <!-- Part 3: Loops - Generate List and Countdown -->
+    <section id="loops-section">
+        <h2>Part 3: Loops - Generate Even Numbers List</h2>
+        <button id="generate-list-btn">Generate List (1-10 Even)</button>
+        <ul id="even-list"></ul>
+        
+        <h2>Countdown</h2>
+        <button id="start-countdown-btn">Start Countdown (from 5)</button>
+        <p id="countdown-result"></p>
+    </section>
+    
+    <!-- Part 4: DOM - Change Text, Toggle Class, Create Element -->
+    <section id="dom-section">
+        <h2>Part 4: DOM Manipulation</h2>
+        <p id="changeable-text">This text can be changed.</p>
+        <button id="change-text-btn">Change Text</button>
+        
+        <div id="toggle-box" class="box">Toggle my class!</div>
+        <button id="toggle-class-btn">Toggle Class</button>
+        
+        <button id="add-element-btn">Add New Paragraph</button>
+        <div id="new-elements-container"></div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+/* style.css (optional, for basic styling) */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+input, button {
+    margin: 10px 0;
+}
+
+.box {
+    width: 200px;
+    height: 100px;
+    background-color: lightblue;
+    text-align: center;
+    line-height: 100px;
+}
+
+.box.active {
+    background-color: lightgreen;
+}
+
+// script.js
+
+// Part 1: Mastering JavaScript Basics
+// Demonstrate variables, data types, operators, and conditionals
+
+// Variable declarations
+let userAge; // Number data type
+const adultAge = 18; // Constant for comparison
+
+// Event listener for age check button
+document.getElementById('check-age-btn').addEventListener('click', () => {
+    userAge = parseInt(document.getElementById('age-input').value); // Get input and convert to number
+    
+    // Conditional logic
+    if (isNaN(userAge)) {
+        document.getElementById('age-result').textContent = 'Please enter a valid number.';
+    } else if (userAge >= adultAge) {
+        document.getElementById('age-result').textContent = `You are ${userAge} years old - You are an adult!`;
+    } else {
+        document.getElementById('age-result').textContent = `You are ${userAge} years old - You are not yet an adult.`;
+    }
+    
+    // Output to console for demonstration
+    console.log(`User age: ${userAge}, Adult: ${userAge >= adultAge}`);
+});
+
+// Part 2: JavaScript Functions — The Heart of Reusability
+// At least 2 custom functions
+
+// Function 1: Format a string (e.g., capitalize name)
+function formatName(name) {
+    if (typeof name !== 'string' || name.trim() === '') {
+        return 'Invalid name';
+    }
+    return name.trim().toUpperCase(); // Process and return formatted string
+}
+
+// Event listener for format name button
+document.getElementById('format-name-btn').addEventListener('click', () => {
+    const inputName = document.getElementById('name-input').value;
+    const formatted = formatName(inputName);
+    document.getElementById('formatted-name').textContent = `Formatted: ${formatted}`;
+});
+
+// Function 2: Calculate sum of two numbers
+function calculateSum(a, b) {
+    return a + b; // Simple arithmetic operation
+}
+
+// Event listener for calculate sum button
+document.getElementById('calculate-sum-btn').addEventListener('click', () => {
+    const num1 = parseFloat(document.getElementById('num1').value);
+    const num2 = parseFloat(document.getElementById('num2').value);
+    if (isNaN(num1) || isNaN(num2)) {
+        document.getElementById('sum-result').textContent = 'Please enter valid numbers.';
+    } else {
+        const sum = calculateSum(num1, num2);
+        document.getElementById('sum-result').textContent = `Sum: ${sum}`;
+    }
+});
+
+// Part 3: JavaScript Loops — Embrace the Power of Repetition!
+// At least 2 loop examples
+
+// Loop 1: For loop to generate even numbers list (1 to 10)
+document.getElementById('generate-list-btn').addEventListener('click', () => {
+    const list = document.getElementById('even-list');
+    list.innerHTML = ''; // Clear previous list
+    
+    for (let i = 1; i <= 10; i++) {
+        if (i % 2 === 0) {
+            const li = document.createElement('li');
+            li.textContent = `Even number: ${i}`;
+            list.appendChild(li);
+        }
+    }
+});
+
+// Loop 2: While loop for countdown
+document.getElementById('start-countdown-btn').addEventListener('click', () => {
+    let count = 5;
+    let countdownText = 'Countdown: ';
+    
+    while (count > 0) {
+        countdownText += `${count} `;
+        count--;
+    }
+    countdownText += 'Go!';
+    
+    document.getElementById('countdown-result').textContent = countdownText;
+    console.log(countdownText); // Also log to console
+});
+
+// Part 4: Mastering the DOM with JavaScript
+// At least 3 DOM interactions
+
+// DOM Interaction 1: Change text content
+document.getElementById('change-text-btn').addEventListener('click', () => {
+    const textElement = document.getElementById('changeable-text');
+    textElement.textContent = 'The text has been changed!';
+});
+
+// DOM Interaction 2: Toggle class on element
+document.getElementById('toggle-class-btn').addEventListener('click', () => {
+    const box = document.getElementById('toggle-box');
+    box.classList.toggle('active');
+});
+
+// DOM Interaction 3: Create and append new element
+document.getElementById('add-element-btn').addEventListener('click', () => {
+    const container = document.getElementById('new-elements-container');
+    const newPara = document.createElement('p');
+    newPara.textContent = 'New paragraph added dynamically!';
+    container.appendChild(newPara);
+});
